@@ -16,7 +16,7 @@
     "verified": "12.999",
     "maximum": "13"
   },
-  "esmodules": ["five-beat-timer.js"],
+  "esmodules": ["dist/five-beat-timer.js"],
   "styles": ["styles/timer.css"],
   "url":      "https://Beltren.github.io/five-beat-timer",
   "manifest": "https://Beltren.github.io/five-beat-timer/module.json",
