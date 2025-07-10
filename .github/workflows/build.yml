@@ -27,9 +27,8 @@ jobs:
       # ————— Запаковываем ZIP для Foundry —————
       - name: Create release zip
         run: |
-          cd dist
-          zip -r ../five-beat-timer.zip .
-          cd ..
+          zip -r five-beat-timer.zip \
+          public/module.json timer-config.yml dist styles templates
 
       # ————— Подготавливаем Pages артефакт —————
       - uses: actions/upload-pages-artifact@v3
@@ -53,7 +52,7 @@ jobs:
           name:     "v${{ steps.pkg.outputs.version }}"
           files:    five-beat-timer.zip
 
-          
+
       - name: Sync version to module.json
         run: |
           VER=$(jq -r .version package.json)
