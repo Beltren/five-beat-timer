@@ -27,11 +27,5 @@ export default defineConfig(({ mode }) => ({
         assetFileNames: "[name][extname]"
       }
     }
-  },
-
-  /* во время dev-сессии hot-reload будет работать из localhost */
-  server: {
-    port: 5173,
-    strictPort: true             // если порт занят — бросит ошибку, а не выберет случайный
   }
 }));

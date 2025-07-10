@@ -4,7 +4,7 @@
   "id": "five-beat-timer",
   "type": "module",
   "description": "Circular session timer with five stages: Hook → Gate → Twist → Climax → Reward.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "authors": [
     {
       "name": "Beltren",
@@ -16,8 +16,8 @@
     "verified": "12.999",
     "maximum": "13"
   },
-  "esmodules": ["dist/main.js"],
-  "styles":   ["styles/timer.css"],
+  "esmodules": ["five-beat-timer.js"],
+  "styles":    ["timer.css"],
   "url":      "https://Beltren.github.io/five-beat-timer",
   "manifest": "https://Beltren.github.io/five-beat-timer/module.json",
   "download": "https://github.com/Beltren/five-beat-timer/releases/latest/download/five-beat-timer.zip"

@@ -41,12 +41,22 @@ jobs:
 
       # ————— Авто-релиз (тег vX.Y.Z берём из package.json) —————
       - name: Read version
-        run: echo "VERSION=$(node -p 'require(\"./package.json\").version')" >> $GITHUB_ENV
+        id: pkg
+        run: |
+          echo "version=$(jq -r .version $GITHUB_WORKSPACE/package.json)" >> $GITHUB_OUTPUT
+
 
       - name: Create / Update Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: "v${{ env.VERSION }}"
-          files: five-beat-timer.zip
-          draft: false
-          prerelease: false
+          tag_name: "v${{ steps.pkg.outputs.version }}"
+          name:     "v${{ steps.pkg.outputs.version }}"
+          files:    five-beat-timer.zip
+
+          
+      - name: Sync version to module.json
+        run: |
+          VER=$(jq -r .version package.json)
+          jq --arg v "$VER" '.version = $v' public/module.json > public/module.tmp
+          mv public/module.tmp public/module.json
+
