@@ -1,0 +1,12 @@
+<div class="dial">
+  {{#each sections as |s i|}}
+    <div class="slice {{#if (eq ../current i)}}active{{/if}}"
+         style="--slice-color: {{s.color}};
+                --slice-start: {{@index}};
+                --slice-count: {{../sections.length}}"></div>
+  {{/each}}
+  <div class="pointer"></div>
+  <div class="overtime hidden"></div>
+</div>
+
+<button class="next">Next</button>

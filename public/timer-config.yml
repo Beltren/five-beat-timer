@@ -1,0 +1,16 @@
+sections:
+  - name: Hook
+    color: "#4caf50"
+    duration: 5m      # поддерживаются 30s, 2m, 1h и т.п.
+  - name: Gate
+    color: "#2196f3"
+    duration: 15m
+  - name: Twist
+    color: "#ff9800"
+    duration: 20m
+  - name: Climax
+    color: "#f44336"
+    duration: 10m
+  - name: Reward
+    color: "#9c27b0"
+    duration: 5m

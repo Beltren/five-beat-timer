@@ -1,0 +1,52 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:      # чтобы видеть ошибки до мержа
+  workflow_dispatch:
+
+permissions:
+  contents: write        # upload release assets
+  pages: write           # deploy pages
+  id-token: write        # для pages
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node 20
+        uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+
+      - run: npm ci
+      - run: npm run build          # vite build
+
+      # ————— Запаковываем ZIP для Foundry —————
+      - name: Create release zip
+        run: |
+          cd dist
+          zip -r ../five-beat-timer.zip .
+          cd ..
+
+      # ————— Подготавливаем Pages артефакт —————
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: "./dist" }
+
+      # ————— Деплой Pages —————
+      - id: deploy
+        uses: actions/deploy-pages@v4
+
+      # ————— Авто-релиз (тег vX.Y.Z берём из package.json) —————
+      - name: Read version
+        run: echo "VERSION=$(node -p 'require(\"./package.json\").version')" >> $GITHUB_ENV
+
+      - name: Create / Update Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "v${{ env.VERSION }}"
+          files: five-beat-timer.zip
+          draft: false
+          prerelease: false
